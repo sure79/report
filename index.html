@@ -1184,6 +1184,104 @@
             transform: translateY(0);
         }
 
+        /* 이름 사주 분석 스타일 */
+        .name-analysis-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .name-analysis-section h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        .name-analysis-content {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .name-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .name-summary h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+
+        .name-numbers {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .name-meaning-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .name-meaning-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .name-meaning-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .name-meaning-section {
+            margin-bottom: 15px;
+        }
+
+        .name-meaning-section h5 {
+            color: #495057;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .name-meaning-section p {
+            color: #6c757d;
+            line-height: 1.6;
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .name-meaning-section ul {
+            color: #6c757d;
+            line-height: 1.6;
+            margin: 0;
+            padding-left: 40px;
+        }
+
+        .name-meaning-section li {
+            margin-bottom: 5px;
+        }
+
 
 
         @media (max-width: 768px) {
@@ -1515,7 +1613,7 @@
                 <div class="calculator-input-section">
                     <div class="input-group calc-input-group">
                         <label for="userName">이름</label>
-                        <input type="text" id="userName" placeholder="예: 김민수" autocomplete="name">
+                        <input type="text" id="userName" placeholder="예: 김민수" autocomplete="name" onchange="analyzeNameInput()">
                     </div>
                     <div class="input-group calc-input-group">
                         <label for="solarDate">양력 생년월일 (YYYYMMDD)</label>
@@ -1534,6 +1632,16 @@
                     <div id="error" class="error-message"></div>
                 </div>
                 <div id="result" class="calculator-result-section"></div>
+                
+                <!-- 이름 사주 분석 섹션 -->
+                <div class="name-analysis-section" id="nameAnalysisSection" style="display: none;">
+                    <h3>📝 이름 사주 분석</h3>
+                    <div class="copy-section">
+                        <button class="copy-btn" onclick="copyNameAnalysisText()">📋 이름 사주풀이 텍스트 복사</button>
+                        <div class="copy-status" id="nameAnalysisCopyStatus" style="display: none;">복사 완료! ✅</div>
+                    </div>
+                    <div id="nameAnalysisContent" class="name-analysis-content"></div>
+                </div>
                 
                 <!-- 자동 연결 버튼들 -->
                 <div class="auto-connect-section" id="autoConnectSection" style="display: none;">
@@ -4172,6 +4280,547 @@ ${allSpecial.join(', ')} 관련 지역이 특히 좋습니다.
         }
 
 
+
+        // 각 숫자별 이름 사주 상세 풀이
+        const nameSajuMeanings = {
+            2: {
+                keyword: "지혜와 통찰력을 지닌 전략가",
+                personality: `직관력이 뛰어나며 시기와 때를 적절히 잘 기다릴 줄 아는 사람입니다. 
+                이성적이고 남다른 판단력으로 남에게 어드바이스를 잘합니다.
+                생각이 100%가 되어야 움직이는 타입으로, 신중하고 계획적인 성향을 가지고 있습니다.
+                내적인 강인함과 단호한 성격으로 어려운 상황에서도 흔들리지 않는 중심을 잡을 수 있습니다.`,
+                
+                strength: `• 뛰어난 직관력과 통찰력
+                • 시기와 때를 아는 지혜
+                • 이성적이고 논리적인 사고
+                • 남다른 판단력과 분석 능력
+                • 인내심과 끈기
+                • 전략적 사고와 계획 수립 능력`,
+                
+                weakness: `• 생각이 너무 많아 실천이 늦어질 수 있음
+                • 완벽주의 성향으로 시작이 어려움
+                • 감정 표현에 서툴 수 있음
+                • 타인의 조언을 받아들이기 어려워함`,
+                
+                advice: `• 너무 많은 생각보다는 실천이 중요합니다
+                • 80%의 확신이 있다면 실행에 옮기세요
+                • 감정을 표현하는 연습이 필요합니다
+                • 때로는 즉흥적인 결정도 좋은 결과를 가져올 수 있습니다`,
+                
+                career: `교육사업, 교수, 교사, 연구직, 컨설턴트, 전략기획, 
+                약사, 회계사, 비서, 작가, 저널리스트`,
+                
+                relationship: `순수하고 때론 정신적인 사랑을 하는 타입입니다.
+                감정을 잘 드러내지 않아 상대방이 답답해할 수 있습니다.
+                결혼은 늦게 갈수록 좋으며, 신중한 만큼 한번 결정하면 지고지순합니다.`
+            },
+            
+            3: {
+                keyword: "따뜻한 마음과 재능을 가진 예술가",
+                personality: `풍요를 타고났으나 본인은 잘 느끼지 못하고 살아갑니다.
+                자신보다 타인을 위해 살아온 성향이 강하며, 인복이 많아 주위에 귀인들이 있습니다.
+                예술적 재능과 손재주가 뛰어나며, 호감형으로 주위에 사람들이 많습니다.
+                다양한 능력으로 여러 가지 일을 동시에 할 수 있는 팔방미인입니다.`,
+                
+                strength: `• 예술적 재능과 창의력
+                • 뛰어난 손재주와 미적 감각
+                • 따뜻하고 배려심 깊은 성격
+                • 인복이 많아 좋은 사람들을 만남
+                • 다재다능한 팔방미인
+                • 호감형 성격으로 인기가 많음`,
+                
+                weakness: `• 자존심이 강해 상처받기 쉬움
+                • 실천력이 부족할 수 있음
+                • 게으른 면이 있음
+                • 타인을 너무 먼저 생각함
+                • 자신의 능력을 과소평가함`,
+                
+                advice: `• 자신의 재능과 가치를 인정하세요
+                • 선택과 집중이 중요합니다
+                • 타인을 도우되 자신도 소중히 여기세요
+                • 실천을 동반한 계획을 세우세요
+                • 사치나 충동적 소비를 조심하세요`,
+                
+                career: `예술 관련(아티스트, 디자이너, 작가, 화가), 
+                교육 관련(선생님), 의료 관련(간호사, 의사), 
+                부동산, 인테리어, 조향사, 미용, 패션`,
+                
+                relationship: `애정이 많으며 스킨십을 좋아합니다.
+                인기가 많아 좋은 만남의 기회가 많습니다.
+                자기 주장이 강하고 미래에 대한 진지한 생각을 많이 합니다.
+                가벼운 사랑은 하지 않는 타입입니다.`
+            },
+            
+            4: {
+                keyword: "누구보다 강력한 리더의 기운과 열정",
+                personality: `해처럼 강력한 기운을 지닌 사람으로, 1개를 하여 4개의 성공을 가져올 수 있는 힘이 있습니다.
+                책임감과 강한 리더십을 가지고 있으며, 겸손도 잊지 않는 예의바른 사람입니다.
+                내적 강인함과 단호한 성격을 가지고 있으며, 직관력이 뛰어나 시기와 때를 잘 기다립니다.
+                자수성가에 대한 갈망이 크며, 열정적인 태도로 목표를 향해 나아갑니다.`,
+                
+                strength: `• 강력한 리더십과 카리스마
+                • 뛰어난 책임감과 추진력
+                • 직관력과 판단력
+                • 열정과 도전정신
+                • 겸손한 자세
+                • 자수성가할 수 있는 능력`,
+                
+                weakness: `• 고집이 센 편
+                • 너무 강한 책임감으로 부담을 느낌
+                • 완벽주의 성향
+                • 타인에게 엄격할 수 있음
+                • 보수적인 면이 있음`,
+                
+                advice: `• 때로는 책임감을 내려놓을 필요가 있습니다
+                • 겸손한 자세를 계속 유지하세요
+                • 부드러운 리더십도 필요합니다
+                • 타인의 의견을 경청하는 자세가 중요합니다
+                • 계획적인 소비 습관을 기르세요`,
+                
+                career: `정치, 외교, 법관, 회사간부, 건축, 설비, 
+                조선업(철강, 전기), 교수, 교사, 연구직, 
+                은행, 약국, 회계사, 작가`,
+                
+                relationship: `보수적이고 엄격하지만 리더십이 있습니다.
+                감정을 잘 드러내지 않지만 내면은 따뜻합니다.
+                순수하고 때론 정신적인 사랑을 추구합니다.
+                결혼은 늦게 갈수록 좋으며, 믿을 수 있는 파트너가 됩니다.`
+            },
+            
+            5: {
+                keyword: "보수적이지만 따뜻한 봄날의 마음을 가진 조언자",
+                personality: `머리가 뛰어나고 도덕적이며 관대한 성품을 가지고 있습니다.
+                리더적 역할을 많이 하며 주변 사람들에게 조언자 역할을 합니다.
+                보수적이고 자기만의 생각이 뚜렷하지만, 실천력이 떨어질 수 있습니다.
+                안정적인 삶을 추구하는 성향이 있으며, 주위에 귀인이 많습니다.`,
+                
+                strength: `• 뛰어난 지능과 지혜
+                • 도덕적이고 윤리적인 가치관
+                • 관대하고 포용력 있는 성품
+                • 훌륭한 조언자이자 멘토
+                • 리더십과 통솔력
+                • 안정적이고 신뢰할 수 있는 성격`,
+                
+                weakness: `• 실천력이 부족할 수 있음
+                • 지나치게 보수적인 성향
+                • 융통성이 부족함
+                • 자기 생각에 갇힐 수 있음
+                • 변화를 두려워함`,
+                
+                advice: `• 생각이 곧 행동이라는 마음가짐이 필요합니다
+                • 실천이 가장 중요한 사주입니다
+                • 때로는 유연한 사고가 필요합니다
+                • 새로운 변화를 받아들이는 자세를 가지세요
+                • 한번의 일확천금보다 꾸준함이 중요합니다`,
+                
+                career: `말을 많이 하는 직업(선생님, 교수, 법 관련, 감독, 코치),
+                중개 관련(부동산, 중계인, 호텔리어),
+                아나운서, 유통, 전기관련, 무역, 공학`,
+                
+                relationship: `가벼운 사랑은 하지 않는 타입입니다.
+                자기 주장이 강하고 보수적인 성향이 있습니다.
+                미래에 대한 진지한 생각을 많이 합니다.
+                안정적이고 책임감 있는 파트너가 됩니다.`
+            },
+            
+            6: {
+                keyword: "주위의 관심과 약속된 성공이 보장된 유형",
+                personality: `길을 가다 넘어져도 누군가 도와줄 사람이 있는 인복이 많은 사람입니다.
+                감수성이 풍부하고 치유, 힐링을 중요시하며, 매력적인 인물로 인맥이 많습니다.
+                자유로운 감정의 소유자로 창의적이며, 손재주가 많습니다.
+                자기 자신을 소중히 여길 줄 아는 사람입니다.`,
+                
+                strength: `• 뛰어난 인복과 인맥
+                • 예술적 재능과 창의력
+                • 매력적인 외모와 성격
+                • 감수성과 공감 능력
+                • 자유로운 사고와 표현력
+                • 치유와 힐링의 능력`,
+                
+                weakness: `• 일회성 소비와 과소비 경향
+                • 감정 기복이 있을 수 있음
+                • 지나치게 자유로워 산만할 수 있음
+                • 현실감각이 부족할 때가 있음`,
+                
+                advice: `• 장기적인 저축이나 투자가 유리합니다
+                • 사람을 잘 만나는 것이 중요합니다
+                • 배움에 대한 투자가 성공의 열쇠입니다
+                • 감정 조절 능력을 기르세요
+                • 예술적 재능을 적극 활용하세요`,
+                
+                career: `예술 분야(패션 디자이너, 미용, 화가, 연예인, 음악),
+                서비스업(방송, 광고, 서비스),
+                창의적 분야(엔지니어, 의사, 영업직)`,
+                
+                relationship: `자유로운 사랑을 추구하며, 구속받는 것을 싫어합니다.
+                만인의 남자/여자 스타일이지만 내 사람은 잘 챙깁니다.
+                매력이 넘쳐 이성에게 인기가 많습니다.
+                감정 표현이 자유롭고 열정적입니다.`
+            },
+            
+            7: {
+                keyword: "열정적인 마음으로 목표를 향해 가는 승부사",
+                personality: `두 가지 일을 동시에 할 수 있는 능력자로, 새로운 도전과 만남을 좋아합니다.
+                리더십이 있고 결정력이 뛰어나며, 목적이 있는 이동을 선호합니다.
+                승부사 기질이 있으며, 활동적이고 개척정신이 강합니다.
+                한 가지가 아닌 두 가지 이상의 일이 동시에 진행되는 경우가 많습니다.`,
+                
+                strength: `• 뛰어난 리더십과 결정력
+                • 멀티태스킹 능력
+                • 승부사 기질과 도전정신
+                • 활동적이고 역동적인 성격
+                • 개척정신과 모험심
+                • 빠른 판단력과 실행력`,
+                
+                weakness: `• 성급한 성격
+                • 욱하는 성향이 있음
+                • 말실수를 할 수 있음
+                • 과도한 목적의식
+                • 인내심이 부족할 수 있음`,
+                
+                advice: `• 과도한 욕심보다는 하나씩 이루어가세요
+                • 신중한 판단과 인내심이 필요합니다
+                • 말실수에 주의하세요
+                • 높은 목표의식은 좋지만 현실적인 계획도 중요합니다
+                • 적극적인 자세와 베푸는 마음을 유지하세요`,
+                
+                career: `활동적 직업(경찰, 군인, 항공, 운송, 항만, 유통),
+                이동 관련(여행사, 가이드),
+                기술 분야(정보통신, 공학, 엔지니어),
+                운동, 발전소, 교도관`,
+                
+                relationship: `정열적이며 리더하는 스타일입니다.
+                로맨티스트이며 순간에 충실합니다.
+                자존심이 강해 상처받기 전에 이별하는 경향이 있습니다.
+                활동적이고 역동적인 연애를 선호합니다.`
+            },
+            
+            8: {
+                keyword: "따뜻한 마음과 배려가 몸에 배어 있는 대기만성형",
+                personality: `강한 내적 의지와 힘을 소유한 사람으로, 고난을 극복하고 결과를 쟁취합니다.
+                느림의 미학이 있어 늦게 진행되는 일들이 많지만, 그만큼 탄탄한 기초를 다집니다.
+                올곧은 성향에 때론 고집이 세며, 틀에서 벗어나는 것을 싫어합니다.
+                사교적이며 책임감이 강하고, 솔선수범하는 성격입니다.`,
+                
+                strength: `• 강한 내적 의지와 인내심
+                • 책임감과 신뢰성
+                • 올곧고 정직한 성품
+                • 배려심과 따뜻함
+                • 사교성과 포용력
+                • 대기만성의 큰 그릇`,
+                
+                weakness: `• 고집이 세고 융통성 부족
+                • 변화를 싫어함
+                • 결과가 늦게 나타남
+                • 보수적인 성향
+                • 권위적일 수 있음`,
+                
+                advice: `• 느림의 미학으로 노년에 큰 성공이 가능합니다
+                • 인내와 타이밍이 중요합니다
+                • 천천히 좋아진다고 생각하는 것이 중요합니다
+                • 융통성을 기르는 연습이 필요합니다
+                • 배려심으로 모든 일에 매진하세요`,
+                
+                career: `사회 안전(사법, 경찰, 군인, 소방관, 교도관),
+                의료(간호사, 재활 및 물리치료사, 의사),
+                철도, 동물조련사, 방송국(연예인)`,
+                
+                relationship: `지고지순한 일방적인 사랑을 하는 타입입니다.
+                권위와 집착이 있을 수 있습니다.
+                한번 마음을 주면 끝까지 책임지는 성격입니다.
+                늦게 만날수록 좋은 관계를 형성합니다.`
+            },
+            
+            9: {
+                keyword: "지혜와 통찰력을 지닌 선지자",
+                personality: `사람을 눈이 아닌 마음으로 판단하는 대학자의 사주입니다.
+                한번 믿으면 끝까지 믿음을 유지하며, 좋아하는 부분에 대한 인내심과 신중함이 있습니다.
+                외로움을 느끼지만 즐기기도 하며, 철학적 사고와 명상을 좋아합니다.
+                개인적 성향이 뚜렷하며, 연구하고 배우는 것을 좋아합니다.`,
+                
+                strength: `• 깊은 통찰력과 지혜
+                • 뛰어난 직관력
+                • 철학적 사고력
+                • 인내심과 신중함
+                • 연구하고 탐구하는 자세
+                • 독립적이고 자립적인 성격`,
+                
+                weakness: `• 외로움을 느낄 수 있음
+                • 고집이 있으나 귀가 얇음
+                • 너무 확고한 생각으로 유연성 부족
+                • 현실감각이 떨어질 수 있음
+                • 감정 표현에 서툼`,
+                
+                advice: `• 겸손한 자세 유지가 중요합니다
+                • 너무 확고한 생각은 시련을 가져올 수 있습니다
+                • 취미생활에 지출이 많을 수 있으니 조심하세요
+                • 고독을 즐기되 소통도 중요합니다
+                • 실무적인 능력도 함께 기르세요`,
+                
+                career: `연구/교육(연구직, 교육직, 심리상담),
+                의료(의사-임상병리),
+                예술(예술가, 음악, 미술),
+                제과제빵, 공예가, 미용, 일식집`,
+                
+                relationship: `외사랑이나 고독한 사랑을 할 확률이 높습니다.
+                스스로 고독을 즐기고 편안한 만남을 원합니다.
+                잘 표현하지 않는 스타일입니다.
+                결혼은 아주 일찍 하거나 늦게 하는 경우가 많습니다.`
+            },
+            
+            10: {
+                keyword: "로또보다 뛰어난 성공수를 가진 유형",
+                personality: `활발하고 활동적이며 사교성이 좋은 사람입니다.
+                유머러스하고 관대하며 포용력이 있지만, 속내를 잘 드러내지 않습니다.
+                여행을 좋아하며, 삶의 반복과 불안정의 연속을 경험합니다.
+                10년 주기로 인생의 전환점을 맞이하며, 항상 긍정적 사고가 중요합니다.`,
+                
+                strength: `• 뛰어난 사교성과 유머감각
+                • 관대하고 포용력 있는 성품
+                • 활발하고 긍정적인 에너지
+                • 적응력과 유연성
+                • 모험심과 도전정신
+                • 행운을 끌어당기는 능력`,
+                
+                weakness: `• 삶의 기복이 있음
+                • 감정 기복이 심할 수 있음
+                • 수입과 지출이 모두 많음
+                • 불안정한 면이 있음
+                • 속내를 잘 드러내지 않음`,
+                
+                advice: `• 자기 자신을 믿는 것이 성공의 열쇠입니다
+                • 저축하는 습관이 중요합니다
+                • 주식, 로또, 카지노는 멀리하세요
+                • 10년 주기의 변화를 잘 활용하세요
+                • 긍정적인 마음을 항상 유지하세요`,
+                
+                career: `이동 관련(운송업, 여행사, 항공사, 철도),
+                기술(컴퓨터공학, 물리공학, 생명공학),
+                상담(언어심리 상담사),
+                가업승계, 병원, 영화, 영상, 해외관련업`,
+                
+                relationship: `운명적인 상대를 만나거나 바라는 성향이 있습니다.
+                배우자 복이 많습니다.
+                인기가 많아 좋은 만남의 기회가 많습니다.
+                여행이나 이동 중에 인연을 만날 가능성이 높습니다.`
+            },
+            
+            11: {
+                keyword: "정확한 판단과 나만의 울타리를 가진 유형",
+                personality: `공명정대하고 칼을 쥐고 태어난 사주로, 제복이나 유니폼을 입는 직업을 선호합니다.
+                논리적이며 정형화된 대화를 좋아하고, 계획적인 삶과 자신만의 루틴이 있습니다.
+                결단력이 있고 정의로우며 합리적이지만, 독설도 하지만 정에 약합니다.
+                융통성은 부족하지만 사회성이 뛰어납니다.`,
+                
+                strength: `• 공명정대한 성격
+                • 뛰어난 판단력과 분석력
+                • 논리적이고 합리적인 사고
+                • 결단력과 추진력
+                • 정의감과 책임감
+                • 계획적이고 체계적인 성격`,
+                
+                weakness: `• 융통성이 부족함
+                • 지나치게 원칙적임
+                • 감정 표현에 서툼
+                • 독설을 할 수 있음
+                • 변화를 싫어함`,
+                
+                advice: `• 너무 강한 생각은 부드럽게 조절이 필요합니다
+                • 융통성을 기르는 연습을 하세요
+                • 감정 표현을 더 자주 해보세요
+                • 타인의 입장도 이해하려 노력하세요
+                • 계획에 없던 일도 때로는 받아들이세요`,
+                
+                career: `법조계(판사, 변호사, 검사, 법무사),
+                금융/회계(세무사, 회계사, 금융업),
+                공직(공무원, 경찰, 군인, 관공서),
+                무역업, 항공, 의사, 요리사, 미용사`,
+                
+                relationship: `자기 속내를 잘 표현하지 않습니다.
+                만남에도 심사숙고하는 스타일입니다.
+                철벽을 치는 경향이 있습니다.
+                한번 마음을 열면 끝까지 책임지는 타입입니다.`
+            }
+        };
+
+        // 이름 분석 함수
+        function analyzeNameInput() {
+            const name = document.getElementById('userName').value.trim();
+            console.log('이름 분석 시작:', name);
+            if (name) {
+                displayNameAnalysis(name);
+            } else {
+                document.getElementById('nameAnalysisSection').style.display = 'none';
+            }
+        }
+
+        // 이름 분석 결과 표시
+        function displayNameAnalysis(name) {
+            const analysis = analyzeName(name);
+            console.log('분석 결과:', analysis);
+            const section = document.getElementById('nameAnalysisSection');
+            const content = document.getElementById('nameAnalysisContent');
+            
+            if (analysis.numbers.length === 0) {
+                console.log('분석된 숫자가 없음');
+                section.style.display = 'none';
+                return;
+            }
+            
+            let html = `
+                <div class="name-summary">
+                    <h4>${name}님의 이름 사주</h4>
+                    <div class="name-numbers">이름 숫자: ${analysis.numbers.join(', ')}</div>
+                </div>
+            `;
+            
+            analysis.meanings.forEach(item => {
+                html += `
+                    <div class="name-meaning-card">
+                        <div class="name-meaning-header">
+                            ${item.number}번의 의미 - ${item.meaning.keyword}
+                        </div>
+                        
+                        <div class="name-meaning-section">
+                            <h5>🧠 성격</h5>
+                            <p>${item.meaning.personality}</p>
+                        </div>
+                        
+                        <div class="name-meaning-section">
+                            <h5>💪 장점</h5>
+                            <p>${item.meaning.strength.replace(/•/g, '<br>•')}</p>
+                        </div>
+                        
+                        <div class="name-meaning-section">
+                            <h5>⚠️ 약점</h5>
+                            <p>${item.meaning.weakness.replace(/•/g, '<br>•')}</p>
+                        </div>
+                        
+                        <div class="name-meaning-section">
+                            <h5>💡 조언</h5>
+                            <p>${item.meaning.advice.replace(/•/g, '<br>•')}</p>
+                        </div>
+                        
+                        <div class="name-meaning-section">
+                            <h5>💼 적합한 직업</h5>
+                            <p>${item.meaning.career}</p>
+                        </div>
+                        
+                        <div class="name-meaning-section">
+                            <h5>💕 연애와 결혼</h5>
+                            <p>${item.meaning.relationship}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            content.innerHTML = html;
+            section.style.display = 'block';
+        }
+
+        // 이름 분석 함수
+        function analyzeName(name) {
+            const result = {
+                name: name,
+                numbers: [],
+                meanings: []
+            };
+            
+            console.log('이름 분석 중:', name);
+            console.log('nameMap 확인:', typeof nameMap, nameMap);
+            
+            // 이름의 각 글자를 숫자로 변환
+            for (let char of name) {
+                const num = nameMap[char];
+                console.log(`글자 ${char}의 숫자:`, num);
+                if (num) {
+                    result.numbers.push(num);
+                    if (!result.meanings.find(m => m.number === num)) {
+                        const meaning = nameSajuMeanings[num];
+                        console.log(`숫자 ${num}의 의미:`, meaning ? '있음' : '없음');
+                        if (meaning) {
+                            result.meanings.push({
+                                number: num,
+                                meaning: meaning
+                            });
+                        }
+                    }
+                }
+            }
+            
+            return result;
+        }
+
+        // 이름 사주풀이 텍스트 복사 함수
+        function copyNameAnalysisText() {
+            const name = document.getElementById('userName').value.trim();
+            if (!name) {
+                alert('이름을 입력해주세요.');
+                return;
+            }
+
+            const analysis = analyzeName(name);
+            if (analysis.numbers.length === 0) {
+                alert('분석할 수 있는 이름이 아닙니다.');
+                return;
+            }
+
+            // 텍스트 생성
+            let text = `=== ${name}님의 이름 사주 분석 ===\n\n`;
+            text += `이름 숫자: ${analysis.numbers.join(', ')}\n\n`;
+
+            analysis.meanings.forEach((item, index) => {
+                text += `【 ${item.number}번의 의미 - ${item.meaning.keyword} 】\n\n`;
+                
+                text += `◆ 성격:\n`;
+                text += `${item.meaning.personality.replace(/\s+/g, ' ').trim()}\n\n`;
+                
+                text += `◆ 장점:\n`;
+                text += `${item.meaning.strength.replace(/•/g, '• ').replace(/\s+/g, ' ').trim()}\n\n`;
+                
+                text += `◆ 약점:\n`;
+                text += `${item.meaning.weakness.replace(/•/g, '• ').replace(/\s+/g, ' ').trim()}\n\n`;
+                
+                text += `◆ 조언:\n`;
+                text += `${item.meaning.advice.replace(/•/g, '• ').replace(/\s+/g, ' ').trim()}\n\n`;
+                
+                text += `◆ 적합한 직업:\n`;
+                text += `${item.meaning.career.replace(/\s+/g, ' ').trim()}\n\n`;
+                
+                text += `◆ 연애와 결혼:\n`;
+                text += `${item.meaning.relationship.replace(/\s+/g, ' ').trim()}\n\n`;
+                
+                if (index < analysis.meanings.length - 1) {
+                    text += `${'='.repeat(50)}\n\n`;
+                }
+            });
+
+            // 클립보드에 복사
+            navigator.clipboard.writeText(text).then(() => {
+                // 복사 완료 메시지 표시
+                const statusDiv = document.getElementById('nameAnalysisCopyStatus');
+                statusDiv.style.display = 'inline-block';
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('복사 실패:', err);
+                // 대체 방법으로 텍스트 영역 생성해서 복사
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                // 복사 완료 메시지 표시
+                const statusDiv = document.getElementById('nameAnalysisCopyStatus');
+                statusDiv.style.display = 'inline-block';
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 2000);
+            });
+        }
 
         // 네이버 음력양력 변환기 열기
         function openNaverConverter() {
