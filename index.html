@@ -1142,6 +1142,62 @@
             word-wrap: break-word;
         }
 
+        .naver-btn {
+            background: linear-gradient(135deg, #00c73c, #00a830) !important;
+            color: white !important;
+        }
+
+        .naver-btn:hover {
+            background: linear-gradient(135deg, #00a830, #008a28) !important;
+            transform: translateY(-2px);
+        }
+
+        .calc-button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .naver-convert-btn {
+            background: linear-gradient(135deg, #00c73c, #00a830);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 199, 60, 0.3);
+            white-space: nowrap;
+        }
+
+        .naver-convert-btn:hover {
+            background: linear-gradient(135deg, #00a830, #008a28);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 199, 60, 0.4);
+        }
+
+        .naver-convert-btn:active {
+            transform: translateY(0);
+        }
+
+
+
+        @media (max-width: 768px) {
+            .calc-button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .naver-convert-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
         .auto-connect-section h3 {
             margin-bottom: 20px;
             color: #4a5568;
@@ -1469,7 +1525,12 @@
                         <label for="lunarDate">음력 생년월일 (YYYYMMDD)</label>
                         <input type="text" id="lunarDate" placeholder="예: 19790422" maxlength="8" inputmode="numeric" pattern="\d*">
                     </div>
-                    <button class="generate-btn" onclick="calculateAll()">계산하기</button>
+                    <div class="calc-button-group">
+                        <button class="generate-btn" onclick="calculateAll()">계산하기</button>
+                        <button class="naver-convert-btn" onclick="openNaverConverter()">
+                            🔄 네이버 음력양력 변환
+                        </button>
+                    </div>
                     <div id="error" class="error-message"></div>
                 </div>
                 <div id="result" class="calculator-result-section"></div>
@@ -1490,6 +1551,9 @@
                         </button>
                         <button class="auto-connect-btn" onclick="generateAIPrompt()">
                             🤖 AI 사주풀이 프롬프트 생성
+                        </button>
+                        <button class="auto-connect-btn naver-btn" onclick="openNaverConverter()">
+                            🔄 네이버 음력양력 변환기
                         </button>
                     </div>
                 </div>
@@ -4105,6 +4169,49 @@ ${allSpecial.join(', ')} 관련 지역이 특히 좋습니다.
                     status.style.display = 'none';
                 }, 2000);
             });
+        }
+
+
+
+        // 네이버 음력양력 변환기 열기
+        function openNaverConverter() {
+            // 입력된 생년월일 정보 가져오기
+            const solarDate = document.getElementById('solarDate').value;
+            const lunarDate = document.getElementById('lunarDate').value;
+
+            // 네이버 음력변환 URL
+            const naverUrl = 'https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EB%84%A4%EC%9D%B4%EB%B2%84+%EC%9D%8C%EB%A0%A5%EB%B3%80%ED%99%98';
+            
+            // 새 창으로 네이버 변환기 열기
+            const newWindow = window.open(naverUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
+            
+            // 사용자에게 안내 메시지 표시
+            let message = '🔄 네이버 음력양력 변환기가 새 창에서 열렸습니다!\n\n';
+            
+            if (solarDate && solarDate.length === 8) {
+                const year = solarDate.substring(0, 4);
+                const month = solarDate.substring(4, 6);
+                const day = solarDate.substring(6, 8);
+                message += `📅 입력된 양력 생년월일: ${year}년 ${month}월 ${day}일\n`;
+            }
+            if (lunarDate && lunarDate.length === 8) {
+                const year = lunarDate.substring(0, 4);
+                const month = lunarDate.substring(4, 6);
+                const day = lunarDate.substring(6, 8);
+                message += `🌙 입력된 음력 생년월일: ${year}년 ${month}월 ${day}일\n`;
+            }
+            
+            if (!solarDate && !lunarDate) {
+                message += '💡 먼저 생년월일을 입력하신 후 변환기를 이용해보세요!\n';
+            }
+            
+            message += '\n✅ 변환기에서 정확한 날짜를 입력하여 변환 결과를 확인하세요.';
+            message += '\n🔄 변환된 결과를 다시 계산기에 입력하시면 됩니다.';
+            
+            // 약간의 지연 후 메시지 표시 (새 창이 열린 후)
+            setTimeout(() => {
+                alert(message);
+            }, 500);
         }
 
     </script>
