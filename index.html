@@ -1830,26 +1830,51 @@
             return String(num).split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
         }
 
-        // 사주번호 계산 함수
+        // 사주번호 계산 함수 (생년 + 월 + 일 방식)
         function calcSajuValue(y, m, d) {
             if (isNaN(y) || isNaN(m) || isNaN(d)) return null;
             const total = y + m + d;
-            if (total < 2000) {
-                let str = String(total).padStart(4, "0");
-                let f2 = parseInt(str.substr(0,2), 10);
-                let b2 = parseInt(str.substr(2,2), 10);
-                let sf = sumDigits(f2);
-                let sb = sumDigits(b2);
-                let fv = sb;
-                let combine = parseInt(String(sf) + String(sb), 10);
-                let sv = sumDigits(combine);
-                return { total, firstVal: fv, secondVal: sv };
-            } else {
-                let lastTwo = total % 100;
-                let fv = (lastTwo > 21) ? (lastTwo % 10) : lastTwo;
-                let sv = sumDigits(total);
-                return { total, firstVal: fv, secondVal: sv };
+            
+            // 생년월일 합이 2000인 경우 특별 예외 처리
+            if (total === 2000) {
+                return { total, firstVal: 20, secondVal: 2 };
             }
+            
+            // 앞 두자리와 뒤 두자리로 분리
+            const frontTwo = Math.floor(total / 100);
+            const backTwo = total % 100;
+            
+            // 앞 두자리의 각 자리수 더하기
+            const frontSum = sumDigits(frontTwo);
+            
+            // 뒤 두자리의 각 자리수 더하기
+            const backSum = sumDigits(backTwo);
+            
+            // 2000 미만인 경우 특별 예외 처리
+            if (total < 2000) {
+                const combinedString = String(frontSum) + String(backSum);
+                const combinedNumber = parseInt(combinedString, 10);
+                
+                if (combinedNumber === 1010) {
+                    return { total, firstVal: 10, secondVal: 2 };
+                }
+                if (combinedNumber === 1011) {
+                    return { total, firstVal: 11, secondVal: 3 };
+                }
+            }
+            
+            // 첫 번째 사주: 뒤 두자리의 합
+            let fv = backSum;
+            
+            // 두 번째 사주: 앞 두자리의 합 + 뒤 두자리의 합
+            let sv = frontSum + backSum;
+            
+            // 두 번째 사주가 21을 넘으면 각 자리수 더하기
+            if (sv > 21) {
+                sv = sumDigits(sv);
+            }
+            
+            return { total, firstVal: fv, secondVal: sv };
         }
 
         // 해운번호 계산 함수 (기준연도 2025)
@@ -2005,8 +2030,8 @@
                 html += '<div class="calc-result-card">';
                 html += '<h3>🌞 사주번호 (양력)</h3>';
                 html += '<div class="calc-result-numbers">';
-                html += `<div class="calc-number-display">${calculatedResults.solar.saju.firstVal}</div>`;
                 html += `<div class="calc-number-display">${calculatedResults.solar.saju.secondVal}</div>`;
+                html += `<div class="calc-number-display">${calculatedResults.solar.saju.firstVal}</div>`;
                 html += '</div></div>';
             }
 
@@ -2015,8 +2040,8 @@
                 html += '<div class="calc-result-card">';
                 html += '<h3>🌙 사주번호 (음력)</h3>';
                 html += '<div class="calc-result-numbers">';
-                html += `<div class="calc-number-display">${calculatedResults.lunar.saju.firstVal}</div>`;
                 html += `<div class="calc-number-display">${calculatedResults.lunar.saju.secondVal}</div>`;
+                html += `<div class="calc-number-display">${calculatedResults.lunar.saju.firstVal}</div>`;
                 html += '</div></div>';
             }
 
