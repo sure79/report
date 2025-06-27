@@ -1840,6 +1840,26 @@
                 return { total, firstVal: 20, secondVal: 2 };
             }
             
+            // 2000 초과인 경우 특별 처리
+            if (total > 2000) {
+                const lastTwoDigits = total % 100;
+                let firstVal, secondVal;
+                
+                if (lastTwoDigits <= 21) {
+                    // 21 이하면 두자리 그대로 사용
+                    firstVal = lastTwoDigits;
+                } else {
+                    // 22 이상이면 마지막 한자리만 사용
+                    firstVal = lastTwoDigits % 10;
+                }
+                
+                // 두 번째 사주는 전체 자릿수 합
+                secondVal = sumDigits(total);
+                
+                return { total, firstVal: firstVal, secondVal: secondVal };
+            }
+            
+            // 2000 미만인 경우 기존 로직
             // 앞 두자리와 뒤 두자리로 분리
             const frontTwo = Math.floor(total / 100);
             const backTwo = total % 100;
@@ -1851,16 +1871,14 @@
             const backSum = sumDigits(backTwo);
             
             // 2000 미만인 경우 특별 예외 처리
-            if (total < 2000) {
-                const combinedString = String(frontSum) + String(backSum);
-                const combinedNumber = parseInt(combinedString, 10);
-                
-                if (combinedNumber === 1010) {
-                    return { total, firstVal: 10, secondVal: 2 };
-                }
-                if (combinedNumber === 1011) {
-                    return { total, firstVal: 11, secondVal: 3 };
-                }
+            const combinedString = String(frontSum) + String(backSum);
+            const combinedNumber = parseInt(combinedString, 10);
+            
+            if (combinedNumber === 1010) {
+                return { total, firstVal: 10, secondVal: 2 };
+            }
+            if (combinedNumber === 1011) {
+                return { total, firstVal: 11, secondVal: 3 };
             }
             
             // 첫 번째 사주: 뒤 두자리의 합
@@ -2088,13 +2106,13 @@
                 haeunValues.push(`${calculatedResults.lunar.haeun.firstVal}/${calculatedResults.lunar.haeun.secondVal}`);
             }
 
-            // 사주번호 전달값 계산
+            // 사주번호 전달값 계산 (순서 변경: secondVal, firstVal)
             let sajuValues = [];
             if (calculatedResults.solar) {
-                sajuValues.push(calculatedResults.solar.saju.firstVal, calculatedResults.solar.saju.secondVal);
+                sajuValues.push(calculatedResults.solar.saju.secondVal, calculatedResults.solar.saju.firstVal);
             }
             if (calculatedResults.lunar) {
-                sajuValues.push(calculatedResults.lunar.saju.firstVal, calculatedResults.lunar.saju.secondVal);
+                sajuValues.push(calculatedResults.lunar.saju.secondVal, calculatedResults.lunar.saju.firstVal);
             }
 
             // 해운번호 미리보기
@@ -2168,16 +2186,16 @@
                 return;
             }
 
-            // 사주번호 값 수집 (양력, 음력 모두)
+            // 사주번호 값 수집 (양력, 음력 모두) - 순서 변경: secondVal, firstVal
             let num1 = '', num2 = '', num3 = '', num4 = '';
 
             if (calculatedResults.solar) {
-                num1 = calculatedResults.solar.saju.firstVal;
-                num2 = calculatedResults.solar.saju.secondVal;
+                num1 = calculatedResults.solar.saju.secondVal;
+                num2 = calculatedResults.solar.saju.firstVal;
             }
             if (calculatedResults.lunar) {
-                num3 = calculatedResults.lunar.saju.firstVal;
-                num4 = calculatedResults.lunar.saju.secondVal;
+                num3 = calculatedResults.lunar.saju.secondVal;
+                num4 = calculatedResults.lunar.saju.firstVal;
             }
 
             console.log('사주번호 전달:', num1, num2, num3, num4); // 디버깅용
@@ -2289,7 +2307,6 @@
             }
             
             let text = `📅 생활별 추천시기 가이드
-생성일: ${currentDate}
 입력 해운번호: ${haeun1} / ${haeun2}
 
 ═══════════════════════════════════════════════════
@@ -2350,9 +2367,7 @@ ${analysis.summary}
 🔴 보류: 피하거나 연기하는 것이 좋은 시기
 
 ※ 이 분석은 해운번호를 기반으로 한 참고 자료입니다.
-※ 실제 결정은 개인의 상황과 판단을 종합하여 내리시기 바랍니다.
-
-생성일시: ${new Date().toLocaleString('ko-KR')}`;
+※ 실제 결정은 개인의 상황과 판단을 종합하여 내리시기 바랍니다.`;
 
             return text;
         }
@@ -2937,7 +2952,6 @@ ${analysis.summary}
             html += `
                 <div class="document-title">
                     <h3>🔮 10년간 해운번호 상세 풀이</h3>
-                    <div class="document-subtitle">생성일: ${new Date().toLocaleDateString('ko-KR')}</div>
                 </div>
             `;
             
@@ -3711,7 +3725,6 @@ ${analysis.summary}
             const currentDate = new Date().toLocaleDateString('ko-KR');
             
             let text = `🌟 사주번호 행운 분석 결과
-생성일: ${currentDate}
 입력 사주번호: ${num1}, ${num2} / ${num3}, ${num4}
 
 ═══════════════════════════════════════════════════
@@ -3869,9 +3882,7 @@ ${allSpecial.join(', ')} 관련 지역이 특히 좋습니다.
 3. 추천 지역: 거주, 사업, 여행 등의 장소 선택 시 참고
 
 ※ 이 분석은 사주번호를 기반으로 한 참고 자료입니다.
-※ 실제 결정은 개인의 상황과 판단을 종합하여 내리시기 바랍니다.
-
-생성일시: ${new Date().toLocaleString('ko-KR')}`;
+※ 실제 결정은 개인의 상황과 판단을 종합하여 내리시기 바랍니다.`;
 
             return text;
         }
@@ -4064,12 +4075,12 @@ ${allSpecial.join(', ')} 관련 지역이 특히 좋습니다.
                 return;
             }
 
-            const sajuNumbers = `${data.saju.firstVal},${data.saju.secondVal}`;
+            const sajuNumbers = `${data.saju.secondVal},${data.saju.firstVal}`;
             let allNumbers = sajuNumbers;
             
-            // 양력과 음력이 모두 있으면 4개 번호 조합
+            // 양력과 음력이 모두 있으면 4개 번호 조합 (순서 변경: secondVal, firstVal)
             if (calculatedResults.solar && calculatedResults.lunar) {
-                allNumbers = `${calculatedResults.solar.saju.firstVal},${calculatedResults.solar.saju.secondVal} / ${calculatedResults.lunar.saju.firstVal},${calculatedResults.lunar.saju.secondVal}`;
+                allNumbers = `${calculatedResults.solar.saju.secondVal},${calculatedResults.solar.saju.firstVal} / ${calculatedResults.lunar.saju.secondVal},${calculatedResults.lunar.saju.firstVal}`;
             }
 
             const prompt = `다음 사주번호에 대해 아래 형식에 맞춰 정확히 풀이해주세요. 각 섹션별 지정된 분량을 반드시 준수하고, 모든 내용은 첨부된 PDF 문서의 사주번호 해석을 기반으로 작성하되, 구체적인 예시와 실용적인 조언을 풍부하게 포함시켜주세요.
