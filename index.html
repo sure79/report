@@ -1247,7 +1247,304 @@
             border-radius: 8px;
             margin-bottom: 15px;
             font-weight: bold;
+        }
+
+        /* 결혼 예측 섹션 스타일 */
+        .marriage-prediction-section {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ffd4d4;
+        }
+
+        .marriage-prediction-section h3 {
+            color: #c53030;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .marriage-input-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .marriage-input-group {
+            margin-bottom: 20px;
+        }
+
+        .marriage-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 1rem;
+        }
+
+        .marriage-input-group input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid #fed7d7;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background: #fefefe;
+        }
+
+        .marriage-input-group input:focus {
+            outline: none;
+            border-color: #e53e3e;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+        }
+
+        .marriage-predict-btn {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
             font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
+            width: 100%;
+        }
+
+        .marriage-predict-btn:hover {
+            background: linear-gradient(135deg, #c53030, #9c2a2a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(229, 62, 62, 0.4);
+        }
+
+        .marriage-results-section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .marriage-summary {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .marriage-summary h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.4rem;
+        }
+
+        .marriage-summary-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .marriage-summary-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .marriage-summary-card h5 {
+            margin: 0 0 5px 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .marriage-summary-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .marriage-table-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            overflow-x: auto;
+        }
+
+        .marriage-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .marriage-table th,
+        .marriage-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .marriage-table th {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .marriage-table tr:hover {
+            background: #fff5f5;
+        }
+
+        .marriage-table td {
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .marriage-chart-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .marriage-chart-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2d3748;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .marriage-chart {
+            position: relative;
+            height: 400px;
+        }
+
+        .marriage-age-highlight {
+            color: #e53e3e;
+            font-weight: 700;
+        }
+
+        .marriage-prediction-note {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            border-left: 4px solid #e53e3e;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #2d3748;
+        }
+
+        .marriage-prediction-note strong {
+            color: #c53030;
+        }
+
+        .daeun-analysis-content {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .daeun-period {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #e53e3e;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .daeun-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .daeun-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .daeun-age-range {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .daeun-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .daeun-marriage-influence {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #2d3748;
+        }
+
+        .current-status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .status-past {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .status-current {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .status-future {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .daeun-influence {
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .influence-positive {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .influence-neutral {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .influence-negative {
+            background: #f8d7da;
+            color: #721c24;
         }
 
         .name-meaning-section {
@@ -1603,6 +1900,7 @@
                 <button class="tab-button active" onclick="showTab('calculator')">번호 계산기</button>
                 <button class="tab-button" onclick="showTab('haeun')">해운번호 그래프</button>
                 <button class="tab-button" onclick="showTab('saju')">사주번호 다각형</button>
+                <button class="tab-button" onclick="showTab('marriage')">💒 결혼 예측</button>
             </div>
         </div>
         
@@ -1796,6 +2094,83 @@
                             💡 지역 추천은 사주번호의 기운과 지역명의 초성이 조화를 이루는 곳들입니다.<br>
                             특별히 "물"과 관련된 지역(강, 해, 호수 등)과 "중앙" 지역은 특별한 기운을 가지고 있습니다.
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 결혼 예측 탭 -->
+        <div id="marriage-tab" class="tab-content">
+            <div class="marriage-prediction-section">
+                <h3>💒 결혼 예측 서비스</h3>
+                <p style="text-align: center; color: #666; margin-bottom: 20px;">생년월일을 기준으로 결혼 횟수와 시기를 예측해드립니다</p>
+                
+                <div class="marriage-input-section">
+                    <div class="marriage-input-group">
+                        <label for="marriageBirthDate">생년월일 (YYYYMMDD)</label>
+                        <input type="text" id="marriageBirthDate" placeholder="예: 19900315" maxlength="8" inputmode="numeric" pattern="\d*">
+                    </div>
+                    <div class="marriage-input-group">
+                        <label for="marriageGender">성별</label>
+                        <select id="marriageGender" style="width: 100%; padding: 12px 16px; font-size: 1rem; border: 2px solid #fed7d7; border-radius: 10px; background: #fefefe;">
+                            <option value="male">남성</option>
+                            <option value="female">여성</option>
+                        </select>
+                    </div>
+                    <button class="marriage-predict-btn" onclick="predictMarriage()">결혼 운세 예측하기</button>
+                </div>
+                
+                <div class="marriage-results-section" id="marriageResultsSection">
+                    <div class="marriage-summary" id="marriageSummary">
+                        <h4 id="marriageSummaryTitle">결혼 운세 분석 결과</h4>
+                        <div class="marriage-summary-info" id="marriageSummaryInfo">
+                            <!-- 결과 요약 카드들이 여기에 표시됩니다 -->
+                        </div>
+                    </div>
+                    
+                    <div class="marriage-table-container">
+                        <h4 style="margin-bottom: 15px; color: #2d3748; text-align: center;">📊 결혼 예측 상세 정보 (대운 포함)</h4>
+                        <table class="marriage-table" id="marriageTable">
+                            <thead>
+                                <tr>
+                                    <th>순번</th>
+                                    <th>예상 연령</th>
+                                    <th>예상 년도</th>
+                                    <th>현재 상태</th>
+                                    <th>대운</th>
+                                    <th>대운 영향</th>
+                                    <th>결혼 가능성</th>
+                                    <th>특징</th>
+                                </tr>
+                            </thead>
+                            <tbody id="marriageTableBody">
+                                <!-- 결혼 예측 데이터가 여기에 표시됩니다 -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="marriage-chart-container">
+                        <div class="marriage-chart-title">📅 대운별 결혼운 분석</div>
+                        <div id="daeunAnalysisContent" class="daeun-analysis-content">
+                            <!-- 대운별 상세 분석이 여기에 표시됩니다 -->
+                        </div>
+                    </div>
+                    
+                    <div class="marriage-chart-container">
+                        <div class="marriage-chart-title">📈 결혼 가능성 차트</div>
+                        <div class="marriage-chart">
+                            <canvas id="marriageChart" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="marriage-prediction-note">
+                        <strong>📝 주의사항:</strong><br>
+                        • 이 예측은 수비학적 계산과 대운 분석을 바탕으로 한 참고 자료입니다.<br>
+                        • <strong>대운(大運)</strong>은 10년 단위로 변하는 인생의 큰 흐름을 나타냅니다.<br>
+                        • 실제 결혼 시기는 개인의 선택과 상황에 따라 달라질 수 있습니다.<br>
+                        • 현재 나이와 년도(2024년)를 기준으로 과거/현재/미래로 구분하여 표시했습니다.<br>
+                        • 🎯는 현재 적령기, ⏩는 미래 예측, ⏪는 지난 시기를 의미합니다.<br>
+                        • 운세는 참고용이며, 실제 인생 결정은 신중하게 하시기 바랍니다.
                     </div>
                 </div>
             </div>
@@ -4897,6 +5272,544 @@ ${allSpecial.join(', ')} 관련 지역이 특히 좋습니다.
             setTimeout(() => {
                 alert(message);
             }, 500);
+        }
+
+        // === 결혼 예측 관련 함수들 ===
+
+        // 결혼 예측 메인 함수
+        function predictMarriage() {
+            const birthDate = document.getElementById('marriageBirthDate').value;
+            const gender = document.getElementById('marriageGender').value;
+            
+            if (!birthDate || birthDate.length !== 8) {
+                alert('생년월일을 8자리 숫자로 정확히 입력해주세요. (예: 19900315)');
+                return;
+            }
+            
+            const year = parseInt(birthDate.substring(0, 4));
+            const month = parseInt(birthDate.substring(4, 6));
+            const day = parseInt(birthDate.substring(6, 8));
+            
+            // 유효성 검사
+            if (year < 1900 || year > 2024 || month < 1 || month > 12 || day < 1 || day > 31) {
+                alert('올바른 생년월일을 입력해주세요.');
+                return;
+            }
+            
+            // 결혼 예측 계산
+            const marriageResult = calculateMarriagePredictions(year, month, day, gender);
+            
+            // 결과 표시
+            displayMarriageResults(marriageResult, year);
+        }
+
+        // 결혼 예측 계산 함수 (대운 포함)
+        function calculateMarriagePredictions(birthYear, birthMonth, birthDay, gender) {
+            const currentYear = new Date().getFullYear();
+            const currentAge = currentYear - birthYear;
+            const predictions = [];
+            
+            // 수비학적 계산
+            const lifePathNumber = calculateLifePathNumber(birthYear, birthMonth, birthDay);
+            const personalityNumber = sumDigits(birthMonth + birthDay);
+            const destinyNumber = sumDigits(birthYear);
+            
+            // 기본 결혼 나이 계산 (수비학 기반)
+            const baseMarriageAges = getBaseMarriageAges(lifePathNumber, gender);
+            
+            // 대운 정보 계산
+            const daeunInfo = calculateDaeun(birthYear, birthMonth, birthDay, gender);
+            
+            // 각 결혼 시기 계산
+            baseMarriageAges.forEach((baseAge, index) => {
+                const marriageYear = birthYear + baseAge;
+                const daeunAtAge = getDaeunAtAge(daeunInfo, baseAge);
+                
+                // 대운을 고려한 결혼 가능성 계산
+                const marriageProbability = calculateMarriageProbabilityWithDaeun(
+                    lifePathNumber, 
+                    personalityNumber, 
+                    destinyNumber, 
+                    baseAge, 
+                    index,
+                    daeunAtAge
+                );
+                
+                const characteristics = getMarriageCharacteristics(
+                    lifePathNumber, 
+                    baseAge, 
+                    index, 
+                    gender
+                );
+                
+                // 현재 상태 판단
+                let currentStatus = '';
+                if (marriageYear < currentYear) {
+                    currentStatus = '과거';
+                } else if (Math.abs(marriageYear - currentYear) <= 1) {
+                    currentStatus = '현재';
+                } else {
+                    currentStatus = '미래';
+                }
+                
+                predictions.push({
+                    order: index + 1,
+                    age: baseAge,
+                    year: marriageYear,
+                    currentStatus: currentStatus,
+                    daeun: daeunAtAge,
+                    daeunInfluence: getDaeunMarriageInfluence(daeunAtAge),
+                    probability: marriageProbability,
+                    characteristics: characteristics
+                });
+            });
+            
+            return { predictions, daeunInfo, currentAge };
+        }
+
+        // 생명 수 계산
+        function calculateLifePathNumber(year, month, day) {
+            let sum = sumDigits(year) + sumDigits(month) + sumDigits(day);
+            while (sum > 9 && sum !== 11 && sum !== 22) {
+                sum = sumDigits(sum);
+            }
+            return sum;
+        }
+
+        // 성별과 수비학에 따른 기본 결혼 나이
+        function getBaseMarriageAges(lifePathNumber, gender) {
+            const baseMaleAges = {
+                1: [28, 35, 42],
+                2: [26, 33, 40],
+                3: [25, 32, 39],
+                4: [29, 36, 43],
+                5: [27, 34, 41],
+                6: [24, 31, 38],
+                7: [30, 37, 44],
+                8: [31, 38, 45],
+                9: [26, 33, 40],
+                11: [29, 36],
+                22: [32, 39]
+            };
+            
+            const baseFemaleAges = {
+                1: [25, 32, 39],
+                2: [24, 31, 38],
+                3: [23, 30, 37],
+                4: [26, 33, 40],
+                5: [25, 32, 39],
+                6: [22, 29, 36],
+                7: [27, 34, 41],
+                8: [28, 35, 42],
+                9: [24, 31, 38],
+                11: [26, 33],
+                22: [29, 36]
+            };
+            
+            return gender === 'male' ? baseMaleAges[lifePathNumber] : baseFemaleAges[lifePathNumber];
+        }
+
+        // 대운 계산 함수
+        function calculateDaeun(birthYear, birthMonth, birthDay, gender) {
+            const daeunList = [];
+            const startAge = 7; // 대운 시작 나이
+            
+            // 10년씩 8개 대운 계산 (7세~77세)
+            for (let i = 0; i < 8; i++) {
+                const ageStart = startAge + (i * 10);
+                const ageEnd = ageStart + 9;
+                const yearStart = birthYear + ageStart;
+                const yearEnd = birthYear + ageEnd;
+                
+                // 대운 특성 계산 (간단한 수비학적 계산)
+                const daeunNumber = (sumDigits(birthYear + birthMonth + birthDay) + i) % 9 + 1;
+                const daeunCharacter = getDaeunCharacter(daeunNumber);
+                
+                daeunList.push({
+                    period: i + 1,
+                    ageStart,
+                    ageEnd,
+                    yearStart,
+                    yearEnd,
+                    daeunNumber,
+                    character: daeunCharacter,
+                    title: `${i + 1}대운 (${ageStart}-${ageEnd}세)`,
+                    description: getDaeunDescription(daeunNumber),
+                    marriageInfluence: getDaeunMarriageInfluence(daeunNumber)
+                });
+            }
+            
+            return daeunList;
+        }
+
+        // 특정 나이의 대운 찾기
+        function getDaeunAtAge(daeunInfo, age) {
+            for (let daeun of daeunInfo) {
+                if (age >= daeun.ageStart && age <= daeun.ageEnd) {
+                    return daeun.daeunNumber;
+                }
+            }
+            return 5; // 기본값
+        }
+
+        // 대운 특성 얻기
+        function getDaeunCharacter(daeunNumber) {
+            const characters = {
+                1: '독립운', 2: '협력운', 3: '표현운', 4: '안정운', 5: '변화운',
+                6: '책임운', 7: '분석운', 8: '성취운', 9: '완성운'
+            };
+            return characters[daeunNumber] || '일반운';
+        }
+
+        // 대운 설명
+        function getDaeunDescription(daeunNumber) {
+            const descriptions = {
+                1: '독립적이고 주도적인 시기로 새로운 시작과 리더십을 발휘합니다.',
+                2: '협력과 조화가 중요한 시기로 파트너십과 인간관계가 발달합니다.',
+                3: '창의성과 표현력이 높아지는 시기로 소통과 예술적 활동이 활발합니다.',
+                4: '안정과 체계를 중시하는 시기로 기반을 다지고 실용적 성과를 추구합니다.',
+                5: '변화와 자유를 추구하는 시기로 새로운 경험과 모험을 선호합니다.',
+                6: '가족과 책임을 중시하는 시기로 돌봄과 봉사 정신이 강화됩니다.',
+                7: '내면 탐구와 분석이 깊어지는 시기로 정신적 성장과 학습에 집중합니다.',
+                8: '성취와 성공을 추구하는 시기로 물질적 발전과 사회적 지위가 중요합니다.',
+                9: '완성과 봉사를 지향하는 시기로 인도주의적 가치와 나눔을 실천합니다.'
+            };
+            return descriptions[daeunNumber] || '일반적인 운세의 흐름을 보입니다.';
+        }
+
+        // 대운이 결혼에 미치는 영향
+        function getDaeunMarriageInfluence(daeunNumber) {
+            const influences = {
+                1: { level: 'neutral', text: '독립적 성향으로 신중한 선택' },
+                2: { level: 'positive', text: '협력운으로 결혼에 매우 유리' },
+                3: { level: 'positive', text: '소통운으로 만남과 연애에 좋음' },
+                4: { level: 'positive', text: '안정운으로 결혼 생활에 유리' },
+                5: { level: 'neutral', text: '변화운으로 자유로운 만남 선호' },
+                6: { level: 'positive', text: '가족운으로 결혼과 출산에 최고' },
+                7: { level: 'negative', text: '분석운으로 신중하나 소극적' },
+                8: { level: 'neutral', text: '성취운으로 조건을 중시' },
+                9: { level: 'positive', text: '완성운으로 성숙한 관계 형성' }
+            };
+            return influences[daeunNumber] || { level: 'neutral', text: '보통의 영향' };
+        }
+
+        // 대운을 고려한 결혼 가능성 계산
+        function calculateMarriageProbabilityWithDaeun(lifePathNumber, personalityNumber, destinyNumber, age, order, daeunNumber) {
+            let baseProbability = 0;
+            
+            // 첫 번째 결혼이 가장 높은 확률
+            if (order === 0) {
+                baseProbability = 85;
+            } else if (order === 1) {
+                baseProbability = 65;
+            } else {
+                baseProbability = 45;
+            }
+            
+            // 생명 수에 따른 조정
+            const lifePathMultiplier = {
+                1: 1.1, 2: 0.9, 3: 1.0, 4: 0.8, 5: 1.2, 
+                6: 1.1, 7: 0.7, 8: 0.9, 9: 1.0, 11: 0.8, 22: 0.9
+            };
+            
+            baseProbability *= lifePathMultiplier[lifePathNumber] || 1.0;
+            
+            // 대운에 따른 조정
+            const daeunMultiplier = {
+                1: 0.9, 2: 1.3, 3: 1.2, 4: 1.1, 5: 0.8, 
+                6: 1.4, 7: 0.7, 8: 1.0, 9: 1.2
+            };
+            
+            baseProbability *= daeunMultiplier[daeunNumber] || 1.0;
+            
+            // 나이에 따른 조정
+            if (age < 25) baseProbability *= 0.8;
+            else if (age > 40) baseProbability *= 0.7;
+            
+            return Math.min(Math.max(Math.round(baseProbability), 15), 98);
+        }
+
+        // 결혼 특징 설명
+        function getMarriageCharacteristics(lifePathNumber, age, order, gender) {
+            const characteristics = {
+                1: {
+                    0: '리더십을 발휘하며 책임감 있는 결혼생활',
+                    1: '경험을 바탕으로 한 성숙한 결혼',
+                    2: '인생의 안정을 추구하는 결혼'
+                },
+                2: {
+                    0: '조화롭고 평화로운 결혼생활',
+                    1: '상호 이해와 협력을 중시하는 결혼',
+                    2: '감정적 안정을 추구하는 결혼'
+                },
+                3: {
+                    0: '창의적이고 활기찬 결혼생활',
+                    1: '소통과 표현을 중시하는 결혼',
+                    2: '예술적 감각을 공유하는 결혼'
+                },
+                4: {
+                    0: '안정적이고 체계적인 결혼생활',
+                    1: '실용적이고 계획적인 결혼',
+                    2: '전통을 중시하는 결혼'
+                },
+                5: {
+                    0: '자유롭고 모험적인 결혼생활',
+                    1: '변화를 추구하는 결혼',
+                    2: '새로운 경험을 함께하는 결혼'
+                },
+                6: {
+                    0: '가족을 중시하는 따뜻한 결혼생활',
+                    1: '돌봄과 배려가 가득한 결혼',
+                    2: '화목한 가정을 이루는 결혼'
+                },
+                7: {
+                    0: '정신적 교감을 중시하는 결혼생활',
+                    1: '깊이 있는 사고를 공유하는 결혼',
+                    2: '철학적 대화를 나누는 결혼'
+                },
+                8: {
+                    0: '성공과 성취를 함께하는 결혼생활',
+                    1: '물질적 안정을 추구하는 결혼',
+                    2: '사회적 지위를 고려한 결혼'
+                },
+                9: {
+                    0: '관대하고 포용적인 결혼생활',
+                    1: '인도주의적 가치를 공유하는 결혼',
+                    2: '봉사와 나눔을 실천하는 결혼'
+                },
+                11: {
+                    0: '영감과 직관을 공유하는 결혼생활',
+                    1: '높은 이상을 추구하는 결혼'
+                },
+                22: {
+                    0: '큰 꿈을 함께 이루는 결혼생활',
+                    1: '사회적 영향력을 발휘하는 결혼'
+                }
+            };
+            
+            return characteristics[lifePathNumber]?.[order] || '특별한 의미를 가진 결혼';
+        }
+
+        // 결혼 예측 결과 표시 (대운 포함)
+        function displayMarriageResults(result, birthYear) {
+            const { predictions, daeunInfo, currentAge } = result;
+            const resultsSection = document.getElementById('marriageResultsSection');
+            const summaryInfo = document.getElementById('marriageSummaryInfo');
+            const tableBody = document.getElementById('marriageTableBody');
+            const daeunContent = document.getElementById('daeunAnalysisContent');
+            
+            const currentYear = new Date().getFullYear();
+            
+            // 요약 정보 생성
+            const totalMarriages = predictions.length;
+            const highestProbability = Math.max(...predictions.map(p => p.probability));
+            const earliestAge = Math.min(...predictions.map(p => p.age));
+            const futureMarriages = predictions.filter(p => p.currentStatus !== '과거').length;
+            
+            summaryInfo.innerHTML = `
+                <div class="marriage-summary-card">
+                    <h5>현재 나이</h5>
+                    <div class="value">${currentAge}세</div>
+                </div>
+                <div class="marriage-summary-card">
+                    <h5>예상 결혼 횟수</h5>
+                    <div class="value">${totalMarriages}회</div>
+                </div>
+                <div class="marriage-summary-card">
+                    <h5>남은 기회</h5>
+                    <div class="value">${futureMarriages}회</div>
+                </div>
+                <div class="marriage-summary-card">
+                    <h5>최고 가능성</h5>
+                    <div class="value">${highestProbability}%</div>
+                </div>
+            `;
+            
+            // 테이블 생성
+            tableBody.innerHTML = '';
+            predictions.forEach(prediction => {
+                const row = document.createElement('tr');
+                const probabilityClass = prediction.probability >= 70 ? 'marriage-age-highlight' : '';
+                
+                // 현재 상태 스타일
+                let statusClass = '';
+                let statusText = '';
+                switch(prediction.currentStatus) {
+                    case '과거':
+                        statusClass = 'status-past';
+                        statusText = '과거';
+                        break;
+                    case '현재':
+                        statusClass = 'status-current';
+                        statusText = '현재 적령기';
+                        break;
+                    case '미래':
+                        statusClass = 'status-future';
+                        statusText = '미래';
+                        break;
+                }
+                
+                // 대운 영향 스타일
+                const influence = prediction.daeunInfluence;
+                let influenceClass = '';
+                switch(influence.level) {
+                    case 'positive':
+                        influenceClass = 'influence-positive';
+                        break;
+                    case 'negative':
+                        influenceClass = 'influence-negative';
+                        break;
+                    default:
+                        influenceClass = 'influence-neutral';
+                }
+                
+                row.innerHTML = `
+                    <td><strong>${prediction.order}</strong></td>
+                    <td class="${probabilityClass}">${prediction.age}세</td>
+                    <td class="${probabilityClass}">${prediction.year}년</td>
+                    <td><span class="current-status ${statusClass}">${statusText}</span></td>
+                    <td>${getDaeunCharacter(prediction.daeun)}</td>
+                    <td><span class="daeun-influence ${influenceClass}">${influence.text}</span></td>
+                    <td class="${probabilityClass}"><strong>${prediction.probability}%</strong></td>
+                    <td>${prediction.characteristics}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // 대운별 분석 표시
+            displayDaeunAnalysis(daeunInfo, currentAge, currentYear);
+            
+            // 차트 생성
+            createMarriageChart(predictions);
+            
+            // 결과 섹션 표시
+            resultsSection.style.display = 'block';
+        }
+
+        // 대운별 분석 표시
+        function displayDaeunAnalysis(daeunInfo, currentAge, currentYear) {
+            const daeunContent = document.getElementById('daeunAnalysisContent');
+            
+            let html = '';
+            daeunInfo.forEach(daeun => {
+                // 현재 대운인지 확인
+                const isCurrent = currentAge >= daeun.ageStart && currentAge <= daeun.ageEnd;
+                const borderColor = isCurrent ? '#e53e3e' : '#d1d5db';
+                
+                html += `
+                    <div class="daeun-period" style="border-left-color: ${borderColor};">
+                        <div class="daeun-header">
+                            <div class="daeun-title">
+                                ${daeun.title} ${isCurrent ? '👑 현재 대운' : ''}
+                            </div>
+                            <div class="daeun-age-range">
+                                ${daeun.yearStart}~${daeun.yearEnd}년
+                            </div>
+                        </div>
+                        <div class="daeun-description">
+                            <strong>${daeun.character}:</strong> ${daeun.description}
+                        </div>
+                        <div class="daeun-marriage-influence">
+                            <strong>💒 결혼운 영향:</strong> ${daeun.marriageInfluence.text}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            daeunContent.innerHTML = html;
+        }
+
+        // 결혼 가능성 차트 생성 (대운 정보 포함)
+        function createMarriageChart(predictions) {
+            const canvas = document.getElementById('marriageChart');
+            const ctx = canvas.getContext('2d');
+            
+            // 기존 차트가 있다면 제거
+            if (window.marriageChartInstance) {
+                window.marriageChartInstance.destroy();
+            }
+            
+            const labels = predictions.map(p => {
+                const statusEmoji = p.currentStatus === '과거' ? '⏪' : 
+                                  p.currentStatus === '현재' ? '🎯' : '⏩';
+                return `${statusEmoji} ${p.age}세\n(${p.year}년)`;
+            });
+            
+            const data = predictions.map(p => p.probability);
+            const colors = predictions.map(p => {
+                // 현재 상태에 따른 색상
+                if (p.currentStatus === '과거') return 'rgba(148, 163, 184, 0.6)';
+                if (p.currentStatus === '현재') return 'rgba(229, 62, 62, 0.8)';
+                
+                // 대운 영향에 따른 색상
+                if (p.daeunInfluence.level === 'positive') return 'rgba(34, 197, 94, 0.8)';
+                if (p.daeunInfluence.level === 'negative') return 'rgba(239, 68, 68, 0.8)';
+                return 'rgba(59, 130, 246, 0.8)';
+            });
+            
+            window.marriageChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '결혼 가능성 (%)',
+                        data: data,
+                        backgroundColor: colors,
+                        borderColor: colors.map(color => color.replace('0.8', '1').replace('0.6', '1')),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: '연령대별 결혼 가능성 (대운 반영)',
+                            font: {
+                                size: 16,
+                                weight: 'bold'
+                            }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterLabel: function(context) {
+                                    const prediction = predictions[context.dataIndex];
+                                    return [
+                                        `대운: ${getDaeunCharacter(prediction.daeun)}`,
+                                        `영향: ${prediction.daeunInfluence.text}`,
+                                        `상태: ${prediction.currentStatus}`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: '가능성 (%)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: '연령 (년도) - 🎯현재 ⏩미래 ⏪과거'
+                            }
+                        }
+                    }
+                }
+            });
         }
 
     </script>
